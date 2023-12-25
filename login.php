@@ -21,9 +21,10 @@
 			if($uname != null and $pwd != null) {	
 				include('sql_connect.php');
 				try {
-					$result=$db->query("SELECT id from users where username='$uname' and password='$pwd'");
-					if($result->fetch()) {
-						header("Location: profile.php?id=1");
+					$result = $db->query("SELECT id from users where username='$uname' and password='$pwd'");
+					$result = $result->fetch(PDO::FETCH_ASSOC);
+					if($result) {
+						header("Location: profile.php?id=$result[id]");
 					} else echo "Username or Password wrong!";
 				} catch (PDOException $e) {
 					print("Error!" . $e->getMessage());
